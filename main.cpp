@@ -67,8 +67,20 @@ class LinkedList
         n->add_next_member(new_node);
     }
     
-        void push(){} // add elem at the beggining of the list
-        void pop(){} // get the first elem of the list and than delete it
+    void push(int value) {
+        Node* new_node = new Node(value);
+        new_node->add_next_member(first_elem);
+        first_elem = new_node;
+    }
+    
+    void pop() {
+        if (first_elem != nullptr) {
+            Node* temp = first_elem;
+            first_elem = first_elem->get_next_member();
+            delete temp;
+        }
+    }
+    
         void del(int posiotion){} // delete elem that is placed in positon
         
 };
