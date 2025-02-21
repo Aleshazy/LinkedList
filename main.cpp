@@ -1,26 +1,3 @@
-#include <iostream>
-using namespace std;
-class Node
-{
-    private:
-        int value;
-        Node* next_member = nullptr;
-    public:
-        Node(int value) : value(value){};
-        void add_next_member(Node* ptr)
-        {
-            next_member = ptr;
-        }
-        int get_value()
-        {
-            return value;
-        }
-        Node* get_next_member()
-        {
-            return next_member;
-        }
-};
-
 class LinkedList
 {
     public:
@@ -81,8 +58,44 @@ class LinkedList
         }
     }
     
-        void del(int posiotion){} // delete elem that is placed in positon
-        
+        void del(int position) 
+        {
+            if (first_elem == nullptr) 
+            {
+                return;
+            }
+            
+            if (position == 0) 
+            {
+                Node* temp = first_elem;
+                first_elem = first_elem->get_next_member();
+                delete temp;
+                return;
+            }
+            
+            Node* current = first_elem;
+            int index = 0;
+            
+            while (current != nullptr && index < position - 1) 
+            {
+                current = current->get_next_member();
+                index ++;
+            }
+            
+            if (current == nullptr || current->get_next_member() == nullptr) 
+            {
+                return;
+            }
+            
+            Node* next = current->get_next_member()->get_next_member();
+            delete current->get_next_member();
+            current->add_next_member(next);
+        }
+        void sort() {
+            if (!first_elem || !first_elem->get_next_member()) {
+                return;
+            }
+        }
 };
 
 int main() {
@@ -96,6 +109,8 @@ int main() {
     LinkedList llist1 = LinkedList(new Node(0));
     llist1.append(10);
     llist1.append(20); 
+    
+    llist1.del(1);
 
     Node* member = llist1.first_elem;
     while (member != nullptr) {
